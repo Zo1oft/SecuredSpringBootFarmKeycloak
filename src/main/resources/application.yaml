@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: springbootfarm
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: springbootfarm
+            client-secret: PpFEpYtcMYDi337WAVLPYHdjxNXdmLrJ
+            client-name: springbootfarm
+            authorization-grant-type: authorization_code
+            scope: openid, profile, email
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/SpringBootFarm
+
+server:
+  port: 8091

@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.2
+    container_name: keycloakfarm
+    command: start-dev
+    environment:
+      KC_HOSTNAME: localhost
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "9090:8080"
+    networks:
+      - keycloak_net
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: springbootfarm
+    depends_on:
+      - keycloak
+    ports:
+      - "8091:8091"
+    networks:
+      - keycloak_net
+
+networks:
+  keycloak_net:
